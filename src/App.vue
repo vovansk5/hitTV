@@ -4,24 +4,20 @@
      <br>
      <button @click="textMk">Текст</button>
      <button @click="textStop">Стоп</button>
+     <button @click="test">test</button>
      <br>
      <input v-model="redTextOriginal" v-show="!textShow">
       <marquee id='redTextR' class='redText' direction="right" v-show="runTextFlag" > 
           {{redText}}
       </marquee>
 
-      <h2 id='redTextS' class='redText' v-show="textStopFlag" > 
+      <div id='redTextS' class='redText' v-show="textStopFlag" > 
           {{redText}}
-      </h2>
+      </div>
 
    <br>
-    <div id="demo3"  >Here’s {{redTextOriginal}} flowing clockwise.</div>
+    <div id="demo3" class='redText9' >Here’s flowing clockwise.</div>
     <br>
-
-
-<span id="curved">Текст располагается по окружности</span>
-<span id="curved2">Пример текста располагающегося по кругу</span>
-
 
   </div>
 </template>
@@ -41,7 +37,9 @@ export default {
       textShow:false,
       leftStart:750,
       textStopFlag:false,
-      circle:''
+      circle:'',
+      radiusSetFlag:false,
+      circleType:null
     }
   },
   computed: {
@@ -53,7 +51,6 @@ export default {
       }
   },
   created: function(){
-      //new CircleType(document.getElementById('demo3')).radius(3200);
       return
     },
   methods:{
@@ -61,23 +58,26 @@ export default {
       this.textShow= !this.textShow;
       this.textStopFlag=false;
       this.circle.destroy.bind(this.circle)
+
     },
     textStop() {
       this.textStopFlag=true;
-      this.redTextOriginal+='2';
+      new CircleType(document.getElementById('demo3')).radius(3200);
 
-    $(document).ready(function () {
-        $('#curved').elipText({radius: 220});
-        $('#curved2').elipText({radius: 160, dir:-1});
-    });
+      //this.circleType.destroy();
+      //if (!this.radiusSetFlag) {
+        setTimeout(() => {
+           this.circleType = new CircleType(document.getElementById('redTextS')).radius(3200);
+          }, 1
+        );
+        this.radiusSetFlag=1;
+      //}
+      
 
-
-      //this.circle=new CircleType(document.getElementById('redTextS'));
-      //this.circle.radius(3200);
-      //Circle.radius(3200);
-
-      //new CircleType(document.getElementById('redTextS')).radius(3200);
-      //new CircleType(document.getElementById('redTextS')).radius(300);
+    },
+    test(){
+      //new CircleType(document.getElementById('redTextR')).radius(3200);
+      this.circleType.destroy();
 
     }
 
@@ -134,24 +134,6 @@ body {
   text-align: center;
 }
 
-.circle {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: white;
-  border: 10px solid burlywood;
-  text-align: center;
-  line-height: 200px;
-  font-size: 22px;
-}
-
-span {
-  display: inline-block;
-  width: 25px;
-  position: absolute;
-  transform: translate(-12.5px,0px)rotate(var(--rot)) translate(0,-105px)
-}
 
 
 </style>
