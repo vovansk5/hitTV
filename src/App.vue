@@ -1,12 +1,12 @@
 <template>
-  <div id='App'>
+  <div id='App' >
      <img src="../public/img/hit2.png" />
      <br>
      <button @click="textMk">Текст</button>
      <button @click="textStop">Стоп</button>
-     <button @click="test">test</button>
+     <button @click="changeBG">Сменить фон</button>
      <br>
-     <input v-model="redTextOriginal" v-show="!textShow">
+     <input id="inputText" v-model="redTextOriginal" v-show="!textShow">
       <marquee id='redTextR' class='redText' direction="right" v-show="runTextFlag" > 
           {{redText}}
       </marquee>
@@ -14,10 +14,8 @@
       <div id='redTextS' class='redText' v-show="textStopFlag" > 
           {{redText}}
       </div>
+      <br>
 
-   <br>
-    <div id="demo3" class='redText9' >Here’s flowing clockwise.</div>
-    <br>
 
   </div>
 </template>
@@ -39,7 +37,10 @@ export default {
       textStopFlag:false,
       circle:'',
       radiusSetFlag:false,
-      circleType:null
+      circleType:null,
+      curBG:0,
+      imgBG: ['url("../public/img/fon1.jpg") no-repeat','../public/img/fon2.png',"../public/img/fon3.png"]
+
     }
   },
   computed: {
@@ -66,6 +67,7 @@ export default {
 
       //this.circleType.destroy();
       //if (!this.radiusSetFlag) {
+        //document.getElementById('redTextS').innerHTML=this.redText;
         setTimeout(() => {
            this.circleType = new CircleType(document.getElementById('redTextS')).radius(3200);
           }, 1
@@ -75,9 +77,12 @@ export default {
       
 
     },
-    test(){
+    changeBG(){
       //new CircleType(document.getElementById('redTextR')).radius(3200);
-      this.circleType.destroy();
+      this.curBG++;
+      if (this.curBG>2) {
+        this.curBG=0;
+      } 
 
     }
 
@@ -88,6 +93,19 @@ export default {
 </script>
 
 <style>
+
+#DT {
+  background: hotpink;
+  position:absolute;
+  left: 50%;
+  top: 50%;
+  width: 200px;
+  height: 50px;
+  transform: rotate(15deg);
+  transform-origin: center center;
+}
+
+
 @font-face {
   font-family: mel;
   src: url("../fonts/mel.woff2") format("woff2") ;
@@ -125,7 +143,7 @@ export default {
 
 
 body {
-  background: url("../public/img/fon1.jpg") no-repeat;
+  /*background: url("../public/img/fon1.jpg") no-repeat; */
   background-size: 100% Auto;
   color: #fff;
   font-family: arial;
@@ -134,6 +152,11 @@ body {
   text-align: center;
 }
 
+#App {
+  border: 3px solid red;
+  background: url("../public/img/fon1.jpg") no-repeat;
+  background-size: 100% Auto;
+}
 
 
 </style>
