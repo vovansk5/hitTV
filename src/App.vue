@@ -1,10 +1,12 @@
 <template>
-  <div id='App' >
-     <img src="../public/img/hit2.png" />
+  <div id='App' :style="{background:testColor}" >
+     
+     <img :src="mainImg" />
      <br>
      <button @click="textMk">Текст</button>
      <button @click="textStop">Стоп</button>
      <button @click="changeBG">Сменить фон</button>
+     <button @click="changeMainImg">Сменить колонку</button>
      <br>
      <input id="inputText" v-model="redTextOriginal" v-show="!textShow">
       <marquee id='redTextR' class='redText' direction="right" v-show="runTextFlag" > 
@@ -32,14 +34,17 @@ export default {
   data() {
     return {
       redTextOriginal:'привет друзья ',
-      textShow:false,
+      textShow:true,
       leftStart:750,
       textStopFlag:false,
       circle:'',
       radiusSetFlag:false,
       circleType:null,
       curBG:0,
-      imgBG: ['url("../public/img/fon1.jpg") no-repeat','../public/img/fon2.png',"../public/img/fon3.png"]
+      imgBG: ['url("../public/img/fon1.jpg") no-repeat','../public/img/fon2.png',"../public/img/fon3.png"],
+      testColor:' url("../public/img/fon1.jpg")',
+      testColor2:'3px solid green',
+      mainImg:'./img/hit3.png'
 
     }
   },
@@ -63,11 +68,11 @@ export default {
     },
     textStop() {
       this.textStopFlag=true;
-      new CircleType(document.getElementById('demo3')).radius(3200);
+      //new CircleType(document.getElementById('demo3')).radius(3200);
 
       //this.circleType.destroy();
       //if (!this.radiusSetFlag) {
-        //document.getElementById('redTextS').innerHTML=this.redText;
+        document.getElementById('redTextS').innerHTML=this.redText;
         setTimeout(() => {
            this.circleType = new CircleType(document.getElementById('redTextS')).radius(3200);
           }, 1
@@ -84,6 +89,14 @@ export default {
         this.curBG=0;
       } 
 
+    },
+    changeMainImg() {
+      if (this.mainImg=='./img/hit3.png') {
+        this.mainImg='./img/hit2.png'
+      }
+      else {
+        this.mainImg='./img/hit3.png'
+      }
     }
 
   }
@@ -153,10 +166,67 @@ body {
 }
 
 #App {
-  border: 3px solid red;
-  background: url("../public/img/fon1.jpg") no-repeat;
+  background: url("../public/img/fon1.jpg") ; 
   background-size: 100% Auto;
 }
+
+
+button {
+display: inline-block;
+font-size: 1.1em;
+width:90px;
+text-decoration:none;
+text-align:center;
+font: bold 14px arial;
+text-transform: uppercase;
+padding: 10px 15px;
+margin: 20px 20px;
+color: #ccc;
+background-color: #555;
+background-image: linear-gradient(top, #888 0%, #555 100%);
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #888), color-stop(1, #555));
+background-image: -moz-linear-gradient(top, #888 0%, #555 100%);
+background-image: -o-linear-gradient(top, #888 0%, #555 100%);
+border: none;
+border-radius: 3px;
+text-shadow: 0px -1px 0px #000;
+box-shadow: 0px 1px 0px #666,0px 5px 0px #444,0px 6px 6px rgba(0, 0, 0, .6);
+-webkit-transition: ease .15s all;
+-moz-transition: ease .15s all;
+-o-transition: ease .15s all;
+transition: ease .15s all;
+-webkit-animation: none;
+ -moz-animation: none;
+ -o-animation: none;
+  animation: none;
+}
+button:hover, button:focus{
+-webkit-animation: linear 1.2s light infinite;
+-moz-animation: linear 1.2s light infinite;
+-o-animation: linear 1.2s light infinite;
+animation: linear 1.2s light infinite;
+}
+@-webkit-keyframes light{
+0%   { color: #ddd; text-shadow: 0px -1px 0px #000; }
+50%   { color: #fff; text-shadow: 0px -1px 0px #444, 0px 0px 5px #ffd, 0px 0px 8px #fff; }
+100% { color: #ddd; text-shadow: 0px -1px 0px #000; }
+}
+@-moz-keyframes light{
+0%   { color: #ddd; text-shadow: 0px -1px 0px #000; }
+50%   { color: #fff; text-shadow: 0px -1px 0px #444, 0px 0px 5px #ffd, 0px 0px 8px #fff; }
+100% { color: #ddd; text-shadow: 0px -1px 0px #000; }
+}
+@-o-keyframes light{
+0%   { color: #ddd; text-shadow: 0px -1px 0px #000; }
+50%   { color: #fff; text-shadow: 0px -1px 0px #444, 0px 0px 5px #ffd, 0px 0px 8px #fff; }
+100% { color: #ddd; text-shadow: 0px -1px 0px #000; }
+}
+@keyframes light{
+0%   { color: #ddd; text-shadow: 0px -1px 0px #000; }
+50%   { color: #fff; text-shadow: 0px -1px 0px #444, 0px 0px 5px #ffd, 0px 0px 8px #fff; }
+100% { color: #ddd; text-shadow: 0px -1px 0px #000; }
+}
+
 
 
 </style>
