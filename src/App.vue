@@ -1,5 +1,5 @@
 <template>
-  <div id='App' :class="{fon1:isFon1, fon2:isFon2, fon3:isFon3}" >
+  <div id='App' :class="{fon1:isFon1, fon2:isFon2, fon3:isFon3, fon4:isFon4}" >
      
      <img :src="mainImg" />
      <br>
@@ -8,7 +8,7 @@
      <button id="btnChangeBG" @click="changeBG">Next backGR </button>
      <button id="btnChangeMainImg" @click="changeMainImg">Next set</button>
      <br>
-     <input id="inputText" v-model="redTextOriginal" v-show="!textShow">
+     <input id="inputText" v-model="redTextOriginal" v-show="!textShow" placeholder="input text">
 
       <marquee id='redTextR' class='redText' direction="right" v-show="runTextFlag" > 
           {{redText}}
@@ -36,20 +36,20 @@ export default {
   name: 'Math',
   data() {
     return {
-      redTextOriginal:'привет друзья ',
+      redTextOriginal:'',
       textShow:true,
       leftStart:750,
       textStopFlag:false,
       circle:'',
       radiusSetFlag:false,
       circleType:null,
-      curBG:0,
-      imgBG: ['url("./img/fon1.jpg")  no-repeat ','url("./img/fon4.jpg") no-repeat','url("./img/fon3.jpg") no-repeat'],
+      curBG:1,
+      imgBG: ['url("./img/fon1.jpg")  no-repeat ','url("./img/fon2.png") no-repeat','url("./img/fon3.png") no-repeat','url("./img/fon4.png") no-repeat'],
       curFon:'',
       testColor2:'3px solid green',
-      mainImg:'./img/hit3.png',
+      mainImg:'./img/hit2.png',
       BG: {
-        background:'url("./img/fon2.jpg") no-repeat',
+        background:'url("./img/fon3.jpg") no-repeat',
         backgroundSize: '100%'
       },
       isFon1:false,
@@ -71,6 +71,7 @@ export default {
       }
   },
   created: function(){
+      this.changeBG();
       return
     },
   methods:{
@@ -107,7 +108,7 @@ export default {
     changeBG(){
       //new CircleType(document.getElementById('redTextR')).radius(3200);
       this.curBG++;
-      if (this.curBG>2) {
+      if (this.curBG>3) {
         this.curBG=0;
       }
       this.curFon=this.imgBG[this.curBG];
@@ -236,7 +237,7 @@ body {
 }
 
 .fon4 {
-  background: url("../public/img/fon4.jpg") ; 
+  background: url("../public/img/fon4.png") ; 
   background-size: 100% Auto;
 }
 
@@ -298,5 +299,17 @@ animation: linear 1.2s light infinite;
 }
 
 
+input {
+	padding: 10px 19px ;
+	color: black;
+	margin: 0 auto;
+	background: #EFEFF0;
+	font-size: 18px;
+	text-align: center;
+	font-style: normal;
+	border: 1px solid grey;
+	border-width: 1px 1px 3px;
+	margin-bottom: 10px;
+}
 
 </style>
